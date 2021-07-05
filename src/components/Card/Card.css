@@ -1,0 +1,41 @@
+*{
+    font-family: 'Nunito Sans';
+}
+
+.card{
+    justify-content: center;
+    border-radius: 15px;
+}
+
+/* .card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+} */
+
+.imgShop{
+    margin: 20px 20px;
+    width: 60%;
+}
+
+.card-title{
+    font-size: 18px;
+    margin-bottom: -20px;
+}
+
+.rating{
+    width: 30%;
+}
+
+.priceLabel{
+    font-size: 12px;
+    color: grey;
+}
+
+.priceLabel2{
+    font-size: 15px;
+    color: #fdce51;
+}
+
+.btnBuy{
+    width: 100%;
+}

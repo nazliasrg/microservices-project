@@ -1,0 +1,49 @@
+
+.loginPage {
+    width: 70%;
+    height: 60%;
+    position : absolute;
+    top : 20%;
+    left : 15%;
+    font-family: 'Nunito Sans';
+}
+
+.containerPage{
+    height: 100%;
+}
+
+.rowPage{
+    height: 100%;
+}
+
+.imgPage{
+    background-color: #fdce51;
+    height: 100%;
+}
+
+.imgLogin{
+    width: 67%;
+    height: auto;
+}
+
+.getStarted{
+    font-family: 'Nunito Sans';
+    font-size: 20px;
+}
+
+.register{
+    font-size: 14px;
+    color: grey;
+}
+
+label{
+    font-size: 14px;
+}
+
+.btnLogin{
+    font-family: 'Nunito Sans';
+    width: 100%;
+    color: whitesmoke;
+    font-weight: bold;
+}
+

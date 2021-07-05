@@ -1,0 +1,49 @@
+*{
+    font-family: 'Nunito Sans';
+}
+
+.nav-container{
+    background-color: whitesmoke;
+    padding: 8px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: fixed;
+    overflow: hidden;
+    top:0;
+    width: 100%;
+    z-index: 3;
+}
+
+.cursor{
+    order:3;
+    color: black;
+}
+
+.logo1{
+    order:1;
+}
+
+.logo1 .logo{
+    width: 35px;
+    height: auto;
+    margin-top: -10%;
+    margin-left: 5%;
+}
+
+.akun{
+    order:2;
+}
+
+.akun .btnLogin{
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width:768px){
+    .nav-container{
+        width: 100%;
+        padding : 0px;
+    }
+}
