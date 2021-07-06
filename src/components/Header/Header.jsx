@@ -5,7 +5,8 @@ import money from '../../assets/img/dollar.png'
 import { Link } from 'react-router-dom'
 
 const Header = (props) => {
-    const { username } = props;
+    const { username, customer, saldo } = props;
+
     return (
         <>
             <div className="nav-container" id="navbar2">
@@ -21,7 +22,7 @@ const Header = (props) => {
                 <Link to={'#'} className="akun" id="profileLink">
                     <button type="button" className="btn" id="btnProfile">{username} &nbsp; | &nbsp;&nbsp;
                         <img src={money} alt="" style={{ width: "3%" }} /> &nbsp;
-                        <b>Rp 10.000</b></button>
+                        <b>Rp {saldo}</b></button>
                 </Link>
             </div>
 

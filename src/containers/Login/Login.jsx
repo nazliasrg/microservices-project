@@ -3,6 +3,7 @@ import './Login.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import logoLogin from '../../assets/img/ecommerce.png'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 class Login extends Component {
     constructor(props) {
@@ -38,14 +39,40 @@ class Login extends Component {
             alert("Username is empty!");
         }
         else {
-            alert('Welcome ' + this.state.username + '!');
-            this.props.history.push({
-                pathname: '/home'
-            })
+            const admin = {
+                username: this.state.username,
+                password: this.state.password
+            }
+
+            console.log(admin)
+
+            axios.post('http://localhost:8001/customer/login', admin)
+                .then(res => {
+                    console.log(res);
+                    if (res.data.data.token) {
+                        localStorage.setItem('data_customer', JSON.stringify(res.data));
+                    }
+                    setTimeout(() => {
+                        alert('Welcome ' + this.state.username + '!');
+                        this.props.history.push({
+                            pathname: '/home',
+                            state: res.data.data,
+                        })
+                    }, 1000)
+
+                })
+                .catch(function (error) {
+                    if (error.message === "Request failed with status code 417") {
+                        alert("Account is not active!");
+                    }
+                    else if (error.message === "Request failed with status code 500") {
+                        alert("Username and password don't match!");
+                    }
+                    console.log(error.message)
+                });
         }
     }
     render() {
-
 
         return (
             <Fragment>

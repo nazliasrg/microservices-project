@@ -10,16 +10,44 @@ class Home extends Component {
         super();
         this.state = {
             data: [],
-            username: ''
+            username: '',
+            customer: [],
+            saldo: 0
         };
     }
 
-    componentDidMount() {
-        let data = sessionStorage.getItem('username');
+    authHeader = () => {
+        const user = JSON.parse(localStorage.getItem('data_customer'));
+        console.log(user)
+
+        if (user && user.data.token) {
+            return {
+                'authorization': `Bearer ${user.data.token}`
+            }
+        }
+        else {
+            return null;
+        }
+    }
+
+    async componentDidMount() {
+        if (this.authHeader() == null) {
+            this.props.history.push('/')
+        }
+        await console.log("user")
+        await console.log(localStorage.getItem('data_customer'))
+        const customerJson = JSON.parse(localStorage.getItem('data_customer'));
+        console.log(customerJson.data.username);
         this.setState({
-            username: data
+            customer: customerJson,
+            username: customerJson.data.username
         })
-        this.getData();
+
+        console.log(this.state.customer)
+        console.log(this.state.username)
+
+        await this.getData();
+        await this.getCustomer();
     }
 
     getData = () => {
@@ -28,16 +56,33 @@ class Home extends Component {
                 this.setState({
                     data: res.data
                 })
+                console.log("Data Product")
                 console.log(this.state.data);
             })
     }
 
+    getCustomer = () => {
+        axios.get("http://localhost:8001/customer/get-customer/" + this.state.username)
+            .then(res => {
+                console.log(res.data.saldo)
+                this.setState({
+                    saldo: res.data.saldo
+                })
+            })
+    }
+
     render() {
-        const { data, username } = this.state;
+        const { data, username, customer, saldo } = this.state;
 
         return (
             <Fragment>
-                <Header username={username} />
+
+                <Header
+                    username={username}
+                    customer={customer}
+                    saldo={saldo}
+                />
+
                 <div className="container">
                     <div className="location">
                         <div className="row justify-content-center">
