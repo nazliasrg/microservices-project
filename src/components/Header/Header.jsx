@@ -3,16 +3,29 @@ import './Header.css'
 import logo from '../../assets/img/shop.png'
 import money from '../../assets/img/dollar.png'
 import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router';
 
 const Header = (props) => {
-    const { username, customer, saldo } = props;
+    const history = useHistory();
+    const handleLogout = async () => {
+
+        const r = window.confirm('Are you sure to logout?');
+        if (r === true) {
+            await localStorage.clear();
+            await history.push({
+                pathname: '/'
+            });
+        }
+    }
+
+    const { username, saldo } = props;
 
     return (
         <>
             <div className="nav-container" id="navbar2">
 
                 <Link to={'/'} className="cursor">
-                    <button type="button" className="btn" id="btnProfile">Logout</button>
+                    <button type="button" className="btn" id="btnProfile" onClick={handleLogout}>Logout</button>
                 </Link>
 
                 <div className="logo1">

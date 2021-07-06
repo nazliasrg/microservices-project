@@ -7,35 +7,43 @@
     border-radius: 15px;
 }
 
-/* .card:hover {
+.cardProduct:hover {
     transform: scale(1.05);
     cursor: pointer;
-} */
+}
 
 .imgShop{
-    margin: 20px 20px;
-    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    object-fit: cover;
+}
+
+.judul{
+    height: 25%;
 }
 
 .card-title{
-    font-size: 18px;
-    margin-bottom: -20px;
-}
-
-.rating{
-    width: 30%;
-}
-
-.priceLabel{
-    font-size: 12px;
-    color: grey;
+    font-size: 14px;
+    opacity: 60%;
 }
 
 .priceLabel2{
-    font-size: 15px;
-    color: #fdce51;
+    font-size: 100%;
+    color: black;
+    font-weight: bold;
 }
 
 .btnBuy{
     width: 100%;
+    font-size: 14px;
+}
+
+.rating{
+    width: 8%;
+}
+
+.greyFont{
+    color: gray;
+    font-family: 'Nunito Sans';
 }

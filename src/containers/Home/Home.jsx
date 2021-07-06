@@ -3,7 +3,6 @@ import './Home.css'
 import Header from '../../components/Header/Header.jsx'
 import axios from 'axios'
 import Card from '../../components/Card/Card.jsx'
-import pencil from '../../assets/img/pencil.png'
 
 class Home extends Component {
     constructor() {
@@ -12,7 +11,9 @@ class Home extends Component {
             data: [],
             username: '',
             customer: [],
-            saldo: 0
+            saldo: 0,
+            customerId: 0,
+            dataCustomer: []
         };
     }
 
@@ -31,23 +32,30 @@ class Home extends Component {
     }
 
     async componentDidMount() {
+
         if (this.authHeader() == null) {
             this.props.history.push('/')
         }
-        await console.log("user")
-        await console.log(localStorage.getItem('data_customer'))
-        const customerJson = JSON.parse(localStorage.getItem('data_customer'));
-        console.log(customerJson.data.username);
-        this.setState({
-            customer: customerJson,
-            username: customerJson.data.username
-        })
 
-        console.log(this.state.customer)
-        console.log(this.state.username)
+        if (localStorage.getItem('data_customer') == null) {
+            this.props.history.push('/')
+        }
+        else {
+            await console.log("user")
+            await console.log(localStorage.getItem('data_customer'))
+            const customerJson = JSON.parse(localStorage.getItem('data_customer'));
+            console.log(customerJson.data.username);
+            this.setState({
+                customer: customerJson,
+                username: customerJson.data.username
+            })
 
-        await this.getData();
-        await this.getCustomer();
+            console.log(this.state.customer)
+            console.log(this.state.username)
+
+            await this.getData();
+            await this.getCustomer();
+        }
     }
 
     getData = () => {
@@ -66,20 +74,21 @@ class Home extends Component {
             .then(res => {
                 console.log(res.data.saldo)
                 this.setState({
-                    saldo: res.data.saldo
+                    saldo: res.data.saldo,
+                    customerId: res.data.customerId,
+                    dataCustomer: res.data
                 })
             })
     }
 
     render() {
-        const { data, username, customer, saldo } = this.state;
+        const { data, username, saldo, customerId, dataCustomer } = this.state;
 
         return (
             <Fragment>
 
                 <Header
                     username={username}
-                    customer={customer}
                     saldo={saldo}
                 />
 
@@ -97,9 +106,14 @@ class Home extends Component {
                                             <Card
                                                 key={val.productId}
                                                 img={val.imgSrc}
+                                                productId={val.productId}
                                                 productName={val.productName}
                                                 price={val.price}
                                                 desc={val.description}
+                                                stock={val.stock}
+                                                saldo={saldo}
+                                                customerId={customerId}
+                                                dataCustomer={dataCustomer}
                                             />
                                         )
                                     })
