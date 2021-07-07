@@ -19,6 +19,7 @@ const Card = (props) => {
 
     const handleClose = () => {
         setShow(false)
+        setAmount(0)
     }
 
     const handleShow = () => {
@@ -27,6 +28,7 @@ const Card = (props) => {
 
     const handleCloseO = () => {
         setOShow(false)
+        setAmount(0)
     }
 
     const handleAmountChange = (e) => {
