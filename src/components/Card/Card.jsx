@@ -207,16 +207,34 @@ const Card = (props) => {
                         </div>
                         <div className="col-md-9">
                             <font style={{ fontSize: "12px" }}>{desc}</font><br />
-                            <table>
+                            {/* <table>
                                 <tr>
-                                    <td><font style={{ fontSize: "12px" }}>Amount</font></td>
-                                    <td>&nbsp;:&nbsp;</td>
-                                    <td><badge className="badge badge-dark" style={{ fontSize: "12px", fontWeight: "bold" }}>{amount}</badge></td>
+                                    <td><font style={{ fontSize: "14px" }}>Rp {price} &nbsp;</font></td>
+                                    <td><font style={{ fontSize: "14px" }}>X &nbsp; <strong>{amount}</strong></font></td>
                                 </tr>
                                 <tr>
-                                    <td><font style={{ fontSize: "12px" }}>Cost</font></td>
-                                    <td>&nbsp;:&nbsp;</td>
-                                    <td><badge className="badge badge-dark" style={{ fontSize: "12px", fontWeight: "bold" }}>Rp {amount * price}</badge></td>
+                                    <td><font style={{ fontSize: "14px" }}>Total</font></td>
+                                    <td><font style={{ fontSize: "14px", fontWeight: "bold" }}>Rp &nbsp;{amount * price}</font></td>
+                                </tr>
+                            </table> */}
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-md-3"></div>
+                        <div className="col-md-4">
+                            <table>
+                                <tr>
+                                    <td><font style={{ fontSize: "14px" }}>Rp {price} &nbsp;</font></td>
+                                    <td><font style={{ fontSize: "14px" }}>X &nbsp; <strong>{amount}</strong></font></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div className="col-md-1"></div>
+                        <div className="col-md-4">
+                            <table>
+                                <tr>
+                                    <td><font style={{ fontSize: "14px" }}>Total &nbsp;</font></td>
+                                    <td><font style={{ fontSize: "14px", fontWeight: "bold" }}>Rp &nbsp;{amount * price}</font></td>
                                 </tr>
                             </table>
                         </div>
