@@ -5,11 +5,9 @@ import rating from '../../assets/img/star.png'
 import { Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
 import swal from 'sweetalert';
-import { useHistory } from 'react-router';
 
 
 const Card = (props) => {
-    const history = useHistory();
 
     const { img, productName, price, desc, stock, saldo, productId, customerId, dataCustomer } = props;
 
@@ -61,7 +59,6 @@ const Card = (props) => {
                 console.log(error.message)
             })
 
-        // swal("Successfully!", "Check your email for more information", "success");
         await swal({
             title: "Transaction Successfully!",
             text: "Check your email for more information",
@@ -84,8 +81,23 @@ const Card = (props) => {
                     </div>
                     <div className="row mt-2">
                         <div className="col-md-10">
-                            <img className="rating" src={rating} alt="" />
-                            <label className="greyFont">&nbsp;4,5 &nbsp; | &nbsp; Stock ({stock})</label>
+                            {
+                                (stock <= 0) ?
+                                    <>
+                                        <img className="rating" src={rating} alt="" />
+                                        <label className="greyFont">&nbsp;4,5 &nbsp; | &nbsp; <font style={{ color: "red" }}>Out of Stock</font></label>
+                                    </>
+                                    : (stock < 4) ?
+                                        <>
+                                            <img className="rating" src={rating} alt="" />
+                                            <label className="greyFont">&nbsp;4,5 &nbsp; | &nbsp; <font style={{ color: "red" }}>Stock ({stock})</font></label>
+                                        </>
+                                        :
+                                        <>
+                                            <img className="rating" src={rating} alt="" />
+                                            <label className="greyFont">&nbsp;4,5 &nbsp; | &nbsp; Stock ({stock})</label>
+                                        </>
+                            }
                         </div>
                     </div>
                     <div className="row mt-1">
@@ -93,7 +105,10 @@ const Card = (props) => {
                             <label className="priceLabel"><strong className="priceLabel2">Rp {price}</strong></label>
                         </div>
                         <div className="col-md-7">
-                            <button className="btn btn-dark btnBuy" onClick={handleShow}> Buy Now </button>
+                            {
+                                (stock <= 0) ? <button className="btn btn-dark btnBuy" disabled> Buy Now </button>
+                                    : <button className="btn btn-dark btnBuy" onClick={handleShow}> Buy Now </button>
+                            }
                         </div>
                     </div>
                 </div>
@@ -101,15 +116,25 @@ const Card = (props) => {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{productName}</Modal.Title>
+                    <Modal.Title>
+                        <font style={{ fontSize: "16px", fontWeight: "bold" }}>{productName}</font>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>{desc}</p>
+                    <div className="row">
+                        <div className="col-md-3">
+                            <img style={{ width: "100px" }} src={require(`../../assets/img/${img}`).default} alt="" />
+                        </div>
+                        <div className="col-md-9">
+                            <font style={{ fontSize: "12px" }}>{desc}</font>
+                        </div>
+                    </div>
+
                     <form>
-                        <div className="row">
+                        <div className="row mt-2">
                             <div className="col-md-6">
                                 <label>Stock</label>
-                                <input type="number" className="form-control" id="stock" value={stock} readOnly />
+                                <input type="number" className="form-control" id="stock" value={stock - amount} readOnly />
                             </div>
                             <div className="col-md-6">
                                 <label>Amount</label>
@@ -141,34 +166,67 @@ const Card = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Cancel
                     </Button>
                     {
-                        ((amount * price) > saldo || amount > stock || amount === 0) ?
-                            <Button variant="primary" onClick={handleSubmit} disabled>
+                        (amount < 1) ?
+                            <Button variant="info" disabled>
                                 Buy Now
                             </Button> :
-                            <Button variant="primary" onClick={handleSubmit}>
-                                Buy Now
-                            </Button>
+                            ((amount * price) > saldo) ?
+                                <Button variant="info" disabled>
+                                    Buy Now
+                                </Button>
+                                :
+                                <Button variant="info" onClick={handleSubmit}>
+                                    Buy Now
+                                </Button>
                     }
                 </Modal.Footer>
             </Modal>
 
             <Modal show={oShow} onHide={handleCloseO}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Order Details</Modal.Title>
+                    <Modal.Title>
+                        <font style={{ fontSize: "16px", fontWeight: "bold" }}>
+                            Order Details
+                        </font>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>amount : {amount}</p>
-                    <p>cost : {amount * price}</p>
-                    <p>email : {dataCustomer.email}</p>
+                    <div className="row">
+                        <div className="col-md-10">
+                            <font style={{ fontSize: "14px", fontWeight: "bold" }}>{dataCustomer.name}</font> <br />
+                            <font style={{ fontSize: "12px", fontWeight: "bold" }}>{dataCustomer.email}</font> <br />
+                            <font style={{ fontSize: "12px" }}>{dataCustomer.address}</font>
+                        </div>
+                    </div>
+                    <div className="row mt-2">
+                        <div className="col-md-3">
+                            <img style={{ width: "100px" }} src={require(`../../assets/img/${img}`).default} alt="" />
+                        </div>
+                        <div className="col-md-9">
+                            <font style={{ fontSize: "12px" }}>{desc}</font><br />
+                            <table>
+                                <tr>
+                                    <td><font style={{ fontSize: "12px" }}>Amount</font></td>
+                                    <td>&nbsp;:&nbsp;</td>
+                                    <td><badge className="badge badge-dark" style={{ fontSize: "12px", fontWeight: "bold" }}>{amount}</badge></td>
+                                </tr>
+                                <tr>
+                                    <td><font style={{ fontSize: "12px" }}>Cost</font></td>
+                                    <td>&nbsp;:&nbsp;</td>
+                                    <td><badge className="badge badge-dark" style={{ fontSize: "12px", fontWeight: "bold" }}>Rp {amount * price}</badge></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseO}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmitO}>
+                    <Button variant="info" onClick={handleSubmitO}>
                         Confirmation
                     </Button>
                 </Modal.Footer>
