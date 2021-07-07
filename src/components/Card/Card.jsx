@@ -209,16 +209,6 @@ const Card = (props) => {
                         </div>
                         <div className="col-md-9">
                             <font style={{ fontSize: "12px" }}>{desc}</font><br />
-                            {/* <table>
-                                <tr>
-                                    <td><font style={{ fontSize: "14px" }}>Rp {price} &nbsp;</font></td>
-                                    <td><font style={{ fontSize: "14px" }}>X &nbsp; <strong>{amount}</strong></font></td>
-                                </tr>
-                                <tr>
-                                    <td><font style={{ fontSize: "14px" }}>Total</font></td>
-                                    <td><font style={{ fontSize: "14px", fontWeight: "bold" }}>Rp &nbsp;{amount * price}</font></td>
-                                </tr>
-                            </table> */}
                         </div>
                     </div>
                     <div className="row">
