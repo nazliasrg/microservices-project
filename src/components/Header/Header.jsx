@@ -4,6 +4,7 @@ import logo from '../../assets/img/shop.png'
 import money from '../../assets/img/dollar.png'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router';
+import { Navbar, NavDropdown, Form, FormControl, Button, Nav } from 'react-bootstrap'
 
 const Header = (props) => {
     const history = useHistory();
@@ -18,28 +19,33 @@ const Header = (props) => {
         }
     }
 
-    const { username, saldo } = props;
+    const { username, saldo, home } = props;
 
     return (
-        <>
-            <div className="nav-container" id="navbar2">
+        <Navbar bg="light" expand="lg">
 
-                <Link to={'/'} className="cursor">
-                    <button type="button" className="btn" id="btnProfile" onClick={handleLogout}>Logout</button>
-                </Link>
-
-                <div className="logo1">
-                    <img src={logo} alt="logo library" className="logo" />
-                </div>
-
-                <Link to={'#'} className="akun" id="profileLink">
-                    <button type="button" className="btn" id="btnProfile">{username} &nbsp; | &nbsp;&nbsp;
-                        <img src={money} alt="" style={{ width: "3%" }} /> &nbsp;
-                        <b>Rp {saldo}</b></button>
-                </Link>
-            </div>
-
-        </>
+            <Navbar.Brand href="#home">
+                <img src={logo} alt="logo library" className="logo" />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="mr-auto">
+                    {
+                        (home === true) ? <Nav.Link href="/home" active>Home</Nav.Link> : <Nav.Link href="/home">Home</Nav.Link>
+                    }
+                    <Nav.Link href="#"></Nav.Link>
+                </Nav>
+                <Nav className="justify-content-center">
+                    <Nav.Link href="#">{username} &nbsp; | &nbsp; <img src={money} alt="" style={{ width: "3%" }} /> &nbsp; <b>Rp {saldo}</b></Nav.Link>
+                </Nav>
+                <Nav>
+                    {
+                        (home === false) ? <Nav.Link eventKey={2} href="/history" active> History</Nav.Link> : <Nav.Link eventKey={2} href="/history"> History</Nav.Link>
+                    }
+                    <Nav.Link eventKey={2} onClick={handleLogout}> Logout</Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
     )
 }
 

@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react'
-import './Home.css'
+import './History.css'
 import Header from '../../components/Header/Header.jsx'
 import axios from 'axios'
-import Card from '../../components/Card/Card.jsx'
+import CardHistory from '../../components/CardHistory/CardHistory.jsx'
 
-class Home extends Component {
+class History extends Component {
     constructor() {
         super();
         this.state = {
@@ -14,8 +14,8 @@ class Home extends Component {
             saldo: 0,
             customerId: 0,
             dataCustomer: [],
-            home: true
-        };
+            home: false
+        }
     }
 
     authHeader = () => {
@@ -60,12 +60,12 @@ class Home extends Component {
     }
 
     getData = () => {
-        axios.get("http://localhost:8002/product/getAll")
+        axios.get("http://localhost:8003/transaction/get-all")
             .then(res => {
                 this.setState({
                     data: res.data
                 })
-                console.log("Data Product")
+                console.log("Data Transaction")
                 console.log(this.state.data);
             })
     }
@@ -82,51 +82,45 @@ class Home extends Component {
             })
     }
 
+
     render() {
         const { data, username, saldo, customerId, dataCustomer, home } = this.state;
+        const filterData = data.sort((a, b) =>
+            new Date(b.transactionDate) - new Date(a.transactionDate)
+        );
 
         return (
             <Fragment>
-
                 <Header
                     home={home}
                     username={username}
                     saldo={saldo}
                 />
 
-                <div className="container">
-                    <div className="location">
-                        <div className="row justify-content-center">
-                            <h3 className="pageTitle"> S&nbsp;H&nbsp;O&nbsp;P</h3>
-                        </div>
-
-                        <div className="container1 mt-3">
-                            <div className="d-flex flex-wrap ml-5">
-                                {
-                                    data.map((val) => {
-                                        return (
-                                            <Card
-                                                key={val.productId}
-                                                img={val.imgSrc}
-                                                productId={val.productId}
-                                                productName={val.productName}
-                                                price={val.price}
-                                                desc={val.description}
-                                                stock={val.stock}
-                                                saldo={saldo}
-                                                customerId={customerId}
-                                                dataCustomer={dataCustomer}
-                                            />
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
+                <div className="container mt-3">
+                    <div className="d-flex flex-wrap ml-5">
+                        {
+                            filterData.map((val) => {
+                                return (
+                                    <CardHistory
+                                        key={val.transactionId}
+                                        img={val.productEntity.imgSrc}
+                                        productName={val.productEntity.productName}
+                                        desc={val.productEntity.description}
+                                        price={val.productEntity.price}
+                                        amount={val.amount}
+                                        date={val.transactionDate}
+                                    />
+                                )
+                            })
+                        }
                     </div>
                 </div>
+
             </Fragment>
         )
     }
+
 }
 
-export default Home;
+export default History;

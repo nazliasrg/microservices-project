@@ -5,11 +5,13 @@ import rating from '../../assets/img/star.png'
 import { Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
 import swal from 'sweetalert';
-
+import { useHistory } from 'react-router';
 
 const Card = (props) => {
 
     const { img, productName, price, desc, stock, saldo, productId, customerId, dataCustomer } = props;
+
+    const history = useHistory();
 
     const [show, setShow] = useState(false);
 
@@ -68,7 +70,8 @@ const Card = (props) => {
             button: "OK!",
         });
 
-        await window.location.reload();
+        await history.push("/history");
+        // await window.location.reload();
     }
 
     return (
