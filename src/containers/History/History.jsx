@@ -84,7 +84,7 @@ class History extends Component {
 
 
     render() {
-        const { data, username, saldo, customerId, dataCustomer, home } = this.state;
+        const { data, username, saldo, home } = this.state;
         const filterData = data.sort((a, b) =>
             new Date(b.transactionDate) - new Date(a.transactionDate)
         );

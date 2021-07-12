@@ -71,7 +71,6 @@ const Card = (props) => {
         });
 
         await history.push("/history");
-        // await window.location.reload();
     }
 
     return (

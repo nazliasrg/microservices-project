@@ -26,13 +26,15 @@ const CardHistory = (props) => {
                                             year: 'numeric',
                                             hour: 'numeric',
                                             minute: 'numeric',
-                                            second: 'numeric',
-                                            timeZone: 'Asia/Jakarta'
                                         }).format(new Date(date))}
                                     </font>
                                 </div>
                             </div>
-                            <font style={{ fontSize: "12px" }}>{desc}</font>
+                            <div className="row">
+                                <div className="col-md-8">
+                                    <font style={{ fontSize: "12px" }}>{desc}</font>
+                                </div>
+                            </div>
                             <div className="row">
                                 <div className="col-md-4">
                                     <table>
@@ -42,7 +44,6 @@ const CardHistory = (props) => {
                                         </tr>
                                     </table>
                                 </div>
-                                <div className="col-md-2"></div>
                                 <div className="col-md-4">
                                     <table>
                                         <tr>

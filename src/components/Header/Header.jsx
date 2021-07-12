@@ -2,9 +2,8 @@ import React from 'react'
 import './Header.css'
 import logo from '../../assets/img/shop.png'
 import money from '../../assets/img/dollar.png'
-import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router';
-import { Navbar, NavDropdown, Form, FormControl, Button, Nav } from 'react-bootstrap'
+import { Navbar, Nav } from 'react-bootstrap'
 
 const Header = (props) => {
     const history = useHistory();
