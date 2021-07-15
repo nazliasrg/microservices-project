@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+  microservices-app:
+    container_name: microservices-app
+    image: nzlvrsrg/microservices-image:0.0.1
+    restart: always
+    ports:
+      - 3000:3000
+    build:
+      context: ./
+      dockerfile: Dockerfile
