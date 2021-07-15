@@ -55,7 +55,7 @@ const Card = (props) => {
         await console.log(transaction)
         await console.log(saldo)
 
-        await axios.post("http://localhost:8003/transaction/add-transaction", transaction)
+        await axios.post("http://localhost:8083/transaction/add-transaction", transaction)
             .then(res => {
                 console.log(res)
             })

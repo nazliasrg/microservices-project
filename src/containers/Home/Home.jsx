@@ -60,7 +60,7 @@ class Home extends Component {
     }
 
     getData = () => {
-        axios.get("http://localhost:8002/product/getAll")
+        axios.get("http://localhost:8081/product/get-all")
             .then(res => {
                 this.setState({
                     data: res.data
@@ -71,7 +71,7 @@ class Home extends Component {
     }
 
     getCustomer = () => {
-        axios.get("http://localhost:8001/customer/get-customer/" + this.state.username)
+        axios.get("http://localhost:8082/customer/get-customer/" + this.state.username)
             .then(res => {
                 console.log(res.data.saldo)
                 this.setState({

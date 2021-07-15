@@ -60,7 +60,7 @@ class History extends Component {
     }
 
     getData = () => {
-        axios.get("http://localhost:8003/transaction/get-all")
+        axios.get("http://localhost:8083/transaction/get-all")
             .then(res => {
                 this.setState({
                     data: res.data
@@ -71,7 +71,7 @@ class History extends Component {
     }
 
     getCustomer = () => {
-        axios.get("http://localhost:8001/customer/get-customer/" + this.state.username)
+        axios.get("http://localhost:8082/customer/get-customer/" + this.state.username)
             .then(res => {
                 console.log(res.data.saldo)
                 this.setState({

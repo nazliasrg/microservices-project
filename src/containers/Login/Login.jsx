@@ -46,7 +46,7 @@ class Login extends Component {
 
             console.log(admin)
 
-            axios.post('http://localhost:8001/customer/login', admin)
+            axios.post('http://localhost:8082/customer/login', admin)
                 .then(res => {
                     console.log(res);
                     if (res.data.data.token) {
